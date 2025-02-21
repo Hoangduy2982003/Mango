@@ -43,7 +43,7 @@ public class AuthController : Controller
         }
         else
         {
-            ModelState.AddModelError("CustomerError", responseDto.Message);
+            TempData["error"] = responseDto.Message;
             return View(obj);
         }
     }
@@ -77,6 +77,10 @@ public class AuthController : Controller
                 TempData["success"] = "Registration Successful";
                 return RedirectToAction(nameof(Login));
             }
+        }
+        else
+        {
+            TempData["error"] = result.Message;
         }
 
         var roleList = new List<SelectListItem>()
